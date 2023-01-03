@@ -1,4 +1,4 @@
 
 data/DisasterResponse.db
 analyse data/DisasterResponse.db
-models/classifier.pkl
+# models/classifier.pkl
