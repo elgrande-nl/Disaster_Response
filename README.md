@@ -15,16 +15,15 @@ The purpose of the project is to build a model for an API that classifies disast
     |   │   ├── master.html         # main page of web app
     │   ├── run.py                  # Flask file that runs app
     ├── data                        
-    │   ├── InsertDatabaseName.db   # database to save clean data to
+    │   ├── disaster_categories.csv # Raw categories data from Figure Eight.
+    │   ├── disaster_messages.csv   # Raw messages data from Figure Eight.
+    │   ├── DisasterResponse.db     # database to save clean data to
     │   ├── process_data.py         # ETL pipeline
     ├── models                      
     │   ├── classifier.pkl          # saved model 
     │   ├── train_classifier.py     # Model pipeline
     ├── README.md                   # This file
     └── requirements.txt            # File for reproducing the enviroment.
-
-
-
 
 
 
@@ -48,13 +47,6 @@ pip install -U requirements.txt
 2. Run the following command in the app's directory to run your web app.
     `python run.py`
 3. Go to http://0.0.0.0:3001/
-
-## License
-
-
-### The data files associated with this project are from Figure Eight
-- messages.csv: FIgure Eight provide x messages
-- categories.csv: Raw categories data, total x categories.
 
 
 
