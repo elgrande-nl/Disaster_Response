@@ -77,6 +77,9 @@ def clean_data(df):
     df = pd.concat([df, categories], axis=1, join="inner")
 
     # Remove duplicates.
+    logging.info(
+        "There where {} duplicated rows in the DataFrame".format(df.duplicated().sum())
+    )
     df.drop_duplicates(inplace=True)
 
     return df
