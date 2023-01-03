@@ -14,7 +14,10 @@ from nltk.tokenize import word_tokenize
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
-from sklearn.externals import joblib
+
+# from sklearn.externals import joblib
+import joblib
+import sqlite3
 from sqlalchemy import create_engine
 
 
@@ -35,7 +38,10 @@ def tokenize(text):
 
 # load data
 engine = create_engine("sqlite:///../data/DisasterResponse.db")
-df = pd.read_sql_table("tbl_MessagesCategories", engine)
+df = pd.read_sql_table(
+    "tbl_MessagesCategories",
+    engine,
+)
 
 # load model
 model = joblib.load("../models/classifier.pkl")
