@@ -1,2 +1,3 @@
 
 data/DisasterResponse.db
+analyse data/DisasterResponse.db
