@@ -72,6 +72,8 @@ def clean_data(df):
         categories[column] = categories[column].str[-1]
         # convert column from string to numeric
         categories[column] = pd.to_numeric(categories[column], errors="coerce")
+        # Clean If value > 1 update value to 1
+        categories.loc[categories[column] > 1, column] = 1
 
     # Replace categories column in df with new category columns.
     df = pd.concat([df, categories], axis=1, join="inner")
