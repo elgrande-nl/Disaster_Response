@@ -114,8 +114,8 @@ def build_model():
     )
     # Create Grid search parameters
     parameters = {
-        # "tfidf__use_idf": (True, False),
-        # "clf__estimator__n_estimators": [10, 50],
+        "tfidf__use_idf": (True, False),
+        "clf__estimator__n_estimators": [10, 50],
     }
 
     cv = GridSearchCV(pipeline, param_grid=parameters, verbose=1)
