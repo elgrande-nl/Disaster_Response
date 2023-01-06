@@ -47,6 +47,7 @@ def load_data(database_filepath):
     Returns:
         X (DataFrame): Table that contains the messages
         Y (DataFrame): the classification table
+        category_names (list): list of the categorie names
     """
     engine = create_engine("sqlite:///{}".format(database_filepath))
     df = pd.read_sql_table("tbl_MessagesCategories", engine)
@@ -54,7 +55,9 @@ def load_data(database_filepath):
     X = df["message"]  # message
     Y = df.iloc[:, 5:]  # Classifications
 
-    return X, Y
+    category_names = Y.columns.tolist()
+
+    return X, Y, category_names
 
 
 def tokenize(text):
@@ -112,10 +115,10 @@ def build_model():
     # Create Grid search parameters
     parameters = {
         "tfidf__use_idf": (True, False),
-        "clf__estimator__n_estimators": [10, 50, 100],
+        "clf__estimator__n_estimators": [10, 50],
     }
 
-    cv = GridSearchCV(pipeline, param_grid=parameters, n_jobs=-1, verbose=1)
+    cv = GridSearchCV(pipeline, param_grid=parameters, verbose=1)
 
     return cv
 
@@ -156,28 +159,28 @@ def save_model(model, model_filepath):
 
 
 def main():
-    if len(sys.argv) == 2:
+    if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
-        logging.info("Loading data...\n    DATABASE: {}".format(database_filepath))
+        print("Loading data...\n    DATABASE: {}".format(database_filepath))
         X, Y, category_names = load_data(database_filepath)
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
 
-        logging.info("Building model...")
+        print("Building model...")
         model = build_model()
 
-        logging.info("Training model...")
+        print("Training model...")
         model.fit(X_train, Y_train)
 
-        logging.info("Evaluating model...")
+        print("Evaluating model...")
         evaluate_model(model, X_test, Y_test, category_names)
 
-        logging.info("Saving model...\n    MODEL: {}".format(model_filepath))
+        print("Saving model...\n    MODEL: {}".format(model_filepath))
         save_model(model, model_filepath)
 
-        logging.info("Trained model saved!")
+        print("Trained model saved!")
 
     else:
-        logging.info(
+        print(
             "Please provide the filepath of the disaster messages database "
             "as the first argument and the filepath of the pickle file to "
             "save the model to as the second argument. \n\nExample: python "
@@ -186,5 +189,5 @@ def main():
 
 
 if __name__ == "__main__":
-
+    print(sys.argv)
     main()
