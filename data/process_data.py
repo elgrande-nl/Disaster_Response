@@ -98,7 +98,7 @@ def save_results_to_database(df, database_filepath):
     df.to_sql("tbl_MessagesCategories", engine, index=False, if_exists="replace")
 
 
-if __name__ == "__main__":
+def main():
     if len(sys.argv) == 4:
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
@@ -129,3 +129,7 @@ if __name__ == "__main__":
             "DisasterResponse.db"
             "example: `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`"
         )
+
+
+if __name__ == "__main__":
+    main()
